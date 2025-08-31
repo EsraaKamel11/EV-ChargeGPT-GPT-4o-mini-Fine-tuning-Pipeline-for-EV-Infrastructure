@@ -1,0 +1,26 @@
+{
+  "ev-charging-gpt-4o-mini-12345678": {
+    "model_id": "ev-charging-gpt-4o-mini-12345678",
+    "version": "1.0.0",
+    "base_model": "gpt-4o-mini",
+    "fine_tuned_model_name": "gpt-4o-mini",
+    "training_file": "data/processed/qa_pairs.json",
+    "training_data_size": 100,
+    "created_at": "2025-08-31T14:00:00",
+    "status": "deployed",
+    "performance_metrics": {
+      "accuracy": 0.85,
+      "response_time": 1.2
+    },
+    "training_config": {
+      "model": "gpt-4o-mini",
+      "suffix": "ev-charging"
+    },
+    "description": "EV charging domain fine-tuned model",
+    "tags": [
+      "ev-charging",
+      "fine-tuned",
+      "gpt-4o-mini"
+    ]
+  }
+}

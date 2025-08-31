@@ -1,0 +1,91 @@
+# AI Pipeline Configuration
+target_domain:
+  name: "electric vehicle charging stations"
+  description: "Comprehensive knowledge base for EV charging infrastructure, policies, and technical specifications"
+  use_case: "QA"
+  keywords:
+    - "electric vehicle"
+    - "charging station"
+    - "EV infrastructure"
+    - "charging network"
+    - "battery technology"
+
+data_collection:
+  web_scraping:
+    enabled: true
+    max_pages: 1000
+    delay_between_requests: 2.0
+    user_agent: "Mozilla/5.0 (compatible; EV-Research-Bot/1.0)"
+    allowed_domains:
+      - "chargepoint.com"
+      - "tesla.com"
+      - "evgo.com"
+      - "electrifyamerica.com"
+      - "blinkcharging.com"
+  
+  pdf_extraction:
+    enabled: true
+    max_file_size_mb: 50
+    supported_formats: ["pdf", "PDF"]
+    layout_preservation: true
+    extract_images: false
+    extract_tables: true
+
+  metadata_extraction:
+    enabled: true
+    extract_author: true
+    extract_date: true
+    extract_source: true
+    extract_keywords: true
+
+fine_tuning:
+  base_model: "meta-llama/Llama-2-7b-hf"
+  model_config:
+    max_length: 2048
+    temperature: 0.7
+    top_p: 0.9
+  
+  training:
+    epochs: 3
+    batch_size: 4
+    learning_rate: 2e-5
+    warmup_steps: 100
+    gradient_accumulation_steps: 4
+    max_grad_norm: 1.0
+  
+  quantization:
+    load_in_4bit: true
+    bnb_4bit_compute_dtype: "float16"
+    bnb_4bit_quant_type: "nf4"
+
+evaluation:
+  metrics:
+    - "rouge1"
+    - "rouge2"
+    - "rougeL"
+    - "bleu"
+    - "exact_match"
+  
+  test_split: 0.2
+  validation_split: 0.1
+  
+  benchmarks:
+    - "human_eval"
+    - "mmlu"
+    - "arc"
+
+deployment:
+  api:
+    host: "0.0.0.0"
+    port: 8000
+    workers: 4
+  
+  model_serving:
+    max_concurrent_requests: 10
+    timeout_seconds: 30
+    enable_streaming: true
+  
+  monitoring:
+    enable_logging: true
+    enable_metrics: true
+    log_level: "INFO"
